@@ -1,5 +1,6 @@
 package com.example.booksearchserver.filter;
 
+import com.example.booksearchserver.config.Constants;
 import com.example.booksearchserver.service.auth.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,10 @@ public class AuthenticationFilter implements Filter {
     final HttpServletRequest req = (HttpServletRequest)request;
     final HttpServletResponse res = (HttpServletResponse)response;
 
+    if(!req.getRequestURI().contains("/api/v1")) {
+      chain.doFilter(req, res);
+      return;
+    }
 
     boolean skip = false;
     for (String skipURI : skipURIs) {
@@ -35,7 +40,7 @@ public class AuthenticationFilter implements Filter {
       return;
     }
 
-    final String token = req.getHeader("x-auth-token");
+    final String token = req.getHeader(Constants.TOKEN_HEADER);
     if (token != null && !token.isEmpty()) {
       if (!authService.authenticate(token)) {
         throw new ServletException();

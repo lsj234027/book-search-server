@@ -32,8 +32,12 @@ public class UserService extends BaseService {
     userRepository.add(user);
   }
 
-  public String signin(UserView userView) {
+  public String signin(UserView userView) throws Exception {
     final User user = userRepository.findUserByUserId(userView.getUserid());
+    final String inputPassword = SHA256Util.getEncrypt(userView.getPassword(), user.getSalt());
+    if (!inputPassword.equals(user.getPassword())) {
+      throw new Exception("password invalid");
+    }
     final String token = authService.generateToken(user);
     user.setToken(token);
     userRepository.update(user);

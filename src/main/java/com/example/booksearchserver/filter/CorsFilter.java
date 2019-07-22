@@ -1,5 +1,6 @@
 package com.example.booksearchserver.filter;
 
+import com.example.booksearchserver.config.Constants;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -17,7 +18,7 @@ public class CorsFilter implements Filter {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
     res.setHeader("Access-Control-Max-Age", "3600");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, x-auth-token");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, " + Constants.TOKEN_HEADER);
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
 

@@ -25,15 +25,15 @@ public abstract class BaseRepository<T> {
     return entityManager.getCriteriaBuilder();
   }
 
-  public void add(Object entity) {
+  public void add(BaseEntity entity) {
     entityManager.persist(entity);
   }
 
-  public void update(Object entity) {
+  public void update(BaseEntity entity) {
     entityManager.merge(entity);
   }
 
-  public void remove(Object entity) {
+  public void remove(BaseEntity entity) {
     entityManager.remove(entity);
   }
 

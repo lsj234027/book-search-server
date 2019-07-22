@@ -19,26 +19,33 @@ public class AuthenticationService extends BaseService {
   }
 
   public String generateToken(User user) {
-    String jwt = Jwts.builder()
+    String token = Jwts.builder()
             .setHeaderParam("typ", "JWT")
             .setHeaderParam("regDate", System.currentTimeMillis())
             .setSubject("book")
             .claim("userid", user.getUserid())
             .signWith(SignatureAlgorithm.HS256, this.generateKey())
             .compact();
-    return jwt;
+    return token;
   }
 
-  public boolean isValid(String jwt) {
+  public boolean isValid(String token) {
     try{
       Jws<Claims> claims = Jwts.parser()
               .setSigningKey(this.generateKey())
-              .parseClaimsJws(jwt);
+              .parseClaimsJws(token);
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
     return true;
+  }
+
+  public String getUserIdByToken(String token) {
+    Jws<Claims> claims = Jwts.parser()
+            .setSigningKey(this.generateKey())
+            .parseClaimsJws(token);
+    return claims.getBody().get("userid", String.class);
   }
 
   private byte[] generateKey() {

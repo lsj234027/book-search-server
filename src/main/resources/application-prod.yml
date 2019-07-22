@@ -2,8 +2,8 @@ logging.level.com.danielpark.ai: DEBUG
 logging.level.org.springframework.jdbc.core.JdbcTemplate: DEBUG
 spring.jpa.show-sql: true
 spring.jpa.properties.hibernate.format_sql: true
-server.port: 5200
-#server.servlet.context-path: /booksearch
+server.port: 80
+server.servlet.context-path: /booksearch
 spring :
   h2.console:
     enabled: true
