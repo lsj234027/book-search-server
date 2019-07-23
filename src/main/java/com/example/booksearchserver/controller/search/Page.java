@@ -1,5 +1,8 @@
 package com.example.booksearchserver.controller.search;
 
+/**
+ * Page 객체 정의
+ */
 public class Page {
   private int currentPage;
   private int pageSize;

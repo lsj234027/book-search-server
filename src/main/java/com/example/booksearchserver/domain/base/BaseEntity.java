@@ -3,11 +3,15 @@ package com.example.booksearchserver.domain.base;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.util.*;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.util.Date;
 
+/**
+ * BaseEntity (테이블 공통 항목 정의)
+ */
 @MappedSuperclass
 abstract public class BaseEntity {
 

@@ -8,6 +8,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+/**
+ * User Repository
+ */
 @Repository
 public class UserRepository extends BaseRepository<User> {
 
@@ -17,6 +20,6 @@ public class UserRepository extends BaseRepository<User> {
     Predicate predicate = getBuilder().equal(root.get("userid"), userid);
     query.select(root).where(predicate);
     TypedQuery<User> q = entityManager.createQuery(query);
-    return q.getSingleResult();
+    return q.getResultList().size() > 0 ? q.getResultList().get(0) : null;
   }
 }

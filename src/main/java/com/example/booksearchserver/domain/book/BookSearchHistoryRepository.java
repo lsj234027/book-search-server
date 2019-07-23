@@ -16,6 +16,12 @@ import java.util.Map;
 @Repository
 public class BookSearchHistoryRepository extends BaseRepository<Object> {
 
+  private final int MAX_RESULT_COUNT = 10;
+
+  /**
+   * Top 10 검색어 반환
+   * @return
+   */
   public List<SearchHistoryView> getTop10History() {
     CriteriaQuery<Object[]> query = getBuilder().createQuery(Object[].class);
     Root<BookSearchHistory> root = query.from(BookSearchHistory.class);
@@ -25,13 +31,19 @@ public class BookSearchHistoryRepository extends BaseRepository<Object> {
     );
     query.orderBy(getBuilder().desc(getBuilder().sum(root.get("count"))));
     TypedQuery<Object[]> typedQuery = entityManager.createQuery(query);
-    List<Object[]> resultList = typedQuery.setMaxResults(10).getResultList();
+    List<Object[]> resultList = typedQuery.setMaxResults(MAX_RESULT_COUNT).getResultList();
     List<SearchHistoryView> histories = new ArrayList<SearchHistoryView>();
     resultList.forEach(objects ->
             histories.add(new SearchHistoryView((String)objects[0], ((Long)objects[1]))));
     return histories;
   }
 
+  /**
+   * User, Keyword 로 검색이력 반환
+   * @param user
+   * @param keyword
+   * @return
+   */
   public BookSearchHistory findHistoryByUserKeyword(User user, String keyword) {
     CriteriaQuery<BookSearchHistory> query = getBuilder().createQuery(BookSearchHistory.class);
     Root<BookSearchHistory> root = query.from(BookSearchHistory.class);
@@ -44,11 +56,16 @@ public class BookSearchHistoryRepository extends BaseRepository<Object> {
     return list.get(0);
   }
 
+  /**
+   * User 로 검색이력 반환
+   * @param user
+   * @return
+   */
   public List<BookSearchHistory> findHistoryByUser(User user) {
     CriteriaQuery<BookSearchHistory> query = getBuilder().createQuery(BookSearchHistory.class);
     Root<BookSearchHistory> root = query.from(BookSearchHistory.class);
     Predicate pre = getBuilder().equal(root.get("user"), user);
-    query.select(root).where(pre).orderBy(getBuilder().desc(getBuilder().count(root.get("count"))));
+    query.select(root).where(pre).orderBy(getBuilder().desc(root.get("updateDate")));
     TypedQuery<BookSearchHistory> q = entityManager.createQuery(query);
     return q.getResultList();
   }

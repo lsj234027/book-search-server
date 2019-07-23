@@ -8,16 +8,26 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
+import springfox.documentation.annotations.Cacheable;
 
+/**
+ * AuthenticationService
+ * 인증을 위한 서비스
+ */
 @Service
 public class AuthenticationService extends BaseService {
 
-  private static final String SECRET_KEY = "key";
+  private static final String SECRET_KEY = "key"; // 임시 설정
 
   public boolean authenticate(String token) {
     return isValid(token);
   }
 
+  /**
+   * user정보로 jwt 생성
+   * @param user
+   * @return
+   */
   public String generateToken(User user) {
     String token = Jwts.builder()
             .setHeaderParam("typ", "JWT")
@@ -29,6 +39,12 @@ public class AuthenticationService extends BaseService {
     return token;
   }
 
+  /**
+   * token 체크
+   * @param token
+   * @return
+   */
+  @Cacheable(value="validTokenCache")
   public boolean isValid(String token) {
     try{
       Jws<Claims> claims = Jwts.parser()
@@ -41,13 +57,24 @@ public class AuthenticationService extends BaseService {
     return true;
   }
 
-  public String getUserIdByToken(String token) {
+  /**
+   * token 에서 userid 추출
+   * @param token
+   * @return
+   */
+  @Cacheable(value="getUserByTokenCache")
+  public String getUserIdByToken(String token) throws Exception {
     Jws<Claims> claims = Jwts.parser()
             .setSigningKey(this.generateKey())
             .parseClaimsJws(token);
     return claims.getBody().get("userid", String.class);
   }
 
+  /**
+   * secretkey byte로 변환
+   * @return
+   */
+  @Cacheable(value="genKeyCache")
   private byte[] generateKey() {
     byte[] secretKey = null;
     try {

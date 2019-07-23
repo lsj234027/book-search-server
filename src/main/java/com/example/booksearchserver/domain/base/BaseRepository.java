@@ -13,7 +13,8 @@ import javax.persistence.criteria.Root;
 
 
 /**
- * Abstract class includes basic CRUD methods
+ * JPA CRUD 를 위한 BaseRepository
+ *
  * @see EntityManager
  */
 @Repository

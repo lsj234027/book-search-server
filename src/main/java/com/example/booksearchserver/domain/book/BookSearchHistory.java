@@ -8,6 +8,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/**
+ * 책 검색이력 Entity
+ */
 @Table(uniqueConstraints = @UniqueConstraint(columnNames={"USER_ID", "KEYWORD"}))
 @Entity
 public class BookSearchHistory extends BaseEntity {

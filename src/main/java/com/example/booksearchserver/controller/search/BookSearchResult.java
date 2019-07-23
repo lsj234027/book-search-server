@@ -5,6 +5,9 @@ import com.example.booksearchserver.rest.kakao.Document;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Front-end 에서 사용할 책 검색결과 View
+ */
 public class BookSearchResult implements Serializable {
   private List<Document> books;
   private Page page;

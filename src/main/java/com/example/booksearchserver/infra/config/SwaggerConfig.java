@@ -1,4 +1,4 @@
-package com.example.booksearchserver.config;
+package com.example.booksearchserver.infra.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

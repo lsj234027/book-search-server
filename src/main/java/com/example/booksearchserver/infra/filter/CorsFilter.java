@@ -1,13 +1,15 @@
-package com.example.booksearchserver.filter;
+package com.example.booksearchserver.infra.filter;
 
-import com.example.booksearchserver.config.Constants;
+import com.example.booksearchserver.infra.config.Constants;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
+/**
+ * CorsFilter
+ */
 @Component
 public class CorsFilter implements Filter {
   @Override

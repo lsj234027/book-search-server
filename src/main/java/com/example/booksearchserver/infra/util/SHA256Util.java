@@ -1,4 +1,4 @@
-package com.example.booksearchserver.util;
+package com.example.booksearchserver.infra.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -6,8 +6,6 @@ import java.util.Random;
 
 /**
  * SHA-256 암호화
- *
- * @author Minchang Jang
  *
  */
 public class SHA256Util {
@@ -23,9 +21,9 @@ public class SHA256Util {
   }
 
   /**
-   * SHA-256 암호화 함
+   * SHA-256 암호화
    * @param source 원본
-   * @param salt(byte[]) SALT 값
+   * @param salt(byte[])
    * @return
    */
   public static String getEncrypt(String source, byte[] salt) {
@@ -59,7 +57,7 @@ public class SHA256Util {
   }
 
   /**
-   * SALT를 얻어온다.
+   * salt 생성
    * @return
    */
   public static String generateSalt() {

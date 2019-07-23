@@ -13,8 +13,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchHistoryService extends BaseService {
@@ -45,9 +47,11 @@ public class SearchHistoryService extends BaseService {
     historyRepository.update(history);
   }
 
-  public List<BookSearchHistory> getMyHistories(String userid) {
+  public List<SearchHistoryView> getMyHistories(String userid) {
     final User user = userRepository.findUserByUserId(userid);
-    return historyRepository.findHistoryByUser(user);
+    return historyRepository.findHistoryByUser(user).stream().map(origin -> {
+      return new SearchHistoryView(origin.getKeyword(), origin.getCount(), origin.getUpdateDate());
+    }).collect(Collectors.toList());
   }
 
   public List<SearchHistoryView> getTop10Histories() {

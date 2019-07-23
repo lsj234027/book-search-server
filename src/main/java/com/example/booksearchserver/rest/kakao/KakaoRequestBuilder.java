@@ -11,6 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
+/**
+ * Kakao Retrofit builder
+ */
 public class KakaoRequestBuilder {
   private static final String BASE_URL = "https://dapi.kakao.com/v3/";
   private static final String HEADER_API_KEY = "Authorization";

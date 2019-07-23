@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
+/**
+ * User Entity
+ */
 @Table(uniqueConstraints = @UniqueConstraint(columnNames={"USERID"}))
 @Entity
 public class User extends BaseEntity {

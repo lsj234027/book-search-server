@@ -1,10 +1,11 @@
 package com.example.booksearchserver.controller.user;
 
 
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
+/**
+ * 사용자 View
+ */
 public class UserView implements Serializable {
   private String userid;
   private String password;
